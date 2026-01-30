@@ -48,7 +48,7 @@ export const SkipButton = ({
               transition-transform duration-200
               hover:scale-[1.02] active:scale-95
               shadow-lg
-              scale-[0.65] origin-bottom-right
+              scale-[0.50] origin-bottom-right
               md:scale-100
             "
           >
