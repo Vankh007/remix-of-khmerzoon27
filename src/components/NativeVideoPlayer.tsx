@@ -1408,12 +1408,12 @@ const NativeVideoPlayer = ({
               className="absolute inset-0 z-10 flex items-center justify-center"
               onClick={togglePlayPause}
             >
-              {showControls && (
+            {showControls && (
                 <div className="flex items-center gap-12">
                   <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); skipBackward(); }} className="h-12 w-12 text-white/90">
                     <SkipBack className="h-6 w-6" fill="currentColor" />
                   </Button>
-                  <Button variant="ghost" size="icon" className="h-16 w-16 rounded-full text-white">
+                  <Button variant="ghost" size="icon" className="h-12 w-12 rounded-full bg-primary/30 hover:bg-primary/40 text-white">
                     {isPlaying ? <Pause className="h-7 w-7" fill="currentColor" /> : <Play className="h-7 w-7 ml-0.5" fill="currentColor" />}
                   </Button>
                   <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); skipForward(); }} className="h-12 w-12 text-white/90">
@@ -1425,16 +1425,40 @@ const NativeVideoPlayer = ({
 
             {/* Bottom Controls - Glass Modern Style */}
             <div className={`absolute bottom-0 left-0 right-0 z-40 transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0'}`}>
-              {/* Progress Bar - Super Thin */}
+              {/* Progress Bar - Super Thin with Intro/Outro Yellow Markers */}
               <div className="px-4 pb-1.5">
                 <div className="relative h-[3px] bg-white/15 rounded-full overflow-hidden">
+                  {/* Buffered indicator */}
                   <div className="absolute h-full bg-white/25 rounded-full" style={{ width: `${(buffered / duration) * 100}%` }} />
+                  
+                  {/* Intro segment - Yellow */}
+                  {introEndTime && introEndTime > 0 && duration > 0 && (
+                    <div 
+                      className="absolute h-full bg-yellow-400 rounded-full z-[1]"
+                      style={{ 
+                        left: `${(introStartTime / duration) * 100}%`,
+                        width: `${((introEndTime - introStartTime) / duration) * 100}%`
+                      }}
+                    />
+                  )}
+                  
+                  {/* Outro segment - Yellow */}
+                  {outroStartTime && outroStartTime > 0 && duration > 0 && (
+                    <div 
+                      className="absolute h-full bg-yellow-400 rounded-full z-[1]"
+                      style={{ 
+                        left: `${(outroStartTime / duration) * 100}%`,
+                        width: `${((duration - outroStartTime) / duration) * 100}%`
+                      }}
+                    />
+                  )}
+                  
                   <Slider
                     value={[currentTime]}
                     max={duration || 100}
                     step={0.1}
                     onValueChange={handleSeek}
-                    className="absolute inset-0 [&_[role=slider]]:h-2.5 [&_[role=slider]]:w-2.5"
+                    className="absolute inset-0 z-[2] [&_[role=slider]]:h-2.5 [&_[role=slider]]:w-2.5"
                   />
                 </div>
               </div>
