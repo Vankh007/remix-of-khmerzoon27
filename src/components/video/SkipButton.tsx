@@ -32,25 +32,26 @@ export const SkipButton = ({
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 20 }}
           transition={{ duration: 0.3, ease: 'easeOut' }}
-          className={`absolute bottom-24 right-3 md:bottom-20 md:right-4 z-50 ${className}`}
+          className={`absolute bottom-16 right-3 md:bottom-20 md:right-4 z-[55] ${className}`}
         >
           <Button
             onClick={handleClick}
             variant="outline"
             className="
-              bg-transparent hover:bg-primary/10 text-primary
+              bg-black/60 hover:bg-black/80 text-primary
               border-2 border-primary
-              font-semibold text-xs md:text-sm
-              px-1.5 py-0.5 md:px-2 md:py-1
+              font-semibold text-sm
+              px-3 py-1.5
               h-auto
               rounded-md
-              flex items-center gap-1
+              flex items-center gap-1.5
               transition-transform duration-200
               hover:scale-[1.02] active:scale-95
-              scale-75 origin-bottom-right
+              backdrop-blur-sm
+              shadow-lg
             "
           >
-            <FastForward className="w-3 h-3 md:w-4 md:h-4" />
+            <FastForward className="w-4 h-4" />
             <span>{label}</span>
           </Button>
         </motion.div>
