@@ -38,7 +38,7 @@ export const SkipButton = ({
             onClick={handleClick}
             variant="outline"
             className="
-              bg-black/60 hover:bg-black/80 text-primary
+              bg-transparent hover:bg-transparent text-primary
               border-2 border-primary
               font-semibold text-sm
               px-3 py-1.5
@@ -47,8 +47,9 @@ export const SkipButton = ({
               flex items-center gap-1.5
               transition-transform duration-200
               hover:scale-[1.02] active:scale-95
-              backdrop-blur-sm
               shadow-lg
+              scale-[0.65] origin-bottom-right
+              md:scale-100
             "
           >
             <FastForward className="w-4 h-4" />
