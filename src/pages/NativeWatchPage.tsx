@@ -32,6 +32,10 @@ interface Episode {
   show_id?: string;
   access_type?: 'free' | 'membership' | 'purchase';
   price?: number;
+  // Skip Intro/Outro timestamps
+  intro_start?: number;
+  intro_end?: number;
+  outro_start?: number;
 }
 
 // Collapsible Tabs Section Component
@@ -381,7 +385,7 @@ const [castMembers, setCastMembers] = useState<any[]>([]);
   const [showSubscriptionDialog, setShowSubscriptionDialog] = useState(false);
   const [selectedCastMember, setSelectedCastMember] = useState<any>(null);
 
-  // Convert episodes
+  // Convert episodes - include skip intro/outro timestamps
   const episodes: Episode[] = useMemo(() => rawEpisodes.map(ep => ({
     id: ep.id,
     episode_number: ep.episode_number || 1,
@@ -390,7 +394,10 @@ const [castMembers, setCastMembers] = useState<any[]>([]);
     season_id: ep.season_id,
     show_id: ep.show_id,
     access_type: ep.access_type,
-    price: ep.price
+    price: ep.price,
+    intro_start: ep.intro_start,
+    intro_end: ep.intro_end,
+    outro_start: ep.outro_start,
   })), [rawEpisodes]);
 
   const displayEpisodes = useMemo(() => {
